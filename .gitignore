@@ -1,0 +1,4 @@
+# The KiCad footprint libraries are fetched content, not source — thousands of files.
+# Do NOT commit them. They are reproducible: see kicad-footprints/README.md for the
+# exact sparse-fetch commands that rebuild this directory.
+kicad-footprints/
