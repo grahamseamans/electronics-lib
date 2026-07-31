@@ -99,7 +99,7 @@ provenance.
 ## Who consumes this library
 
 Verified 2026-07-31 by grepping every top-level directory in `/workspace` and by
-checking the `(generator …)` tag on all 231 `.kicad_mod` files outside this repo.
+checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this repo.
 
 **Build-time / runtime readers — resolve paths into this directory when they run:**
 
