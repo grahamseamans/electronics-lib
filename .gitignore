@@ -1,4 +1,12 @@
-# The KiCad footprint libraries are fetched content, not source — thousands of files.
-# Do NOT commit them. They are reproducible: see kicad-footprints/README.md for the
-# exact sparse-fetch commands that rebuild this directory.
+# The upstream KiCad footprint mirror is FETCHED CONTENT, not source - 21 MB of
+# somebody else's repository, pinned to one commit and byte-for-byte reproducible from
+# the recipe in README.md. It is not committed, and nothing of ours may live in it.
+#
+# The invariant that makes this safe, and it is checkable:
+#
+#     git -C kicad-footprints status --porcelain    # MUST print nothing
+#
+# Anything authored here belongs in authored/, which IS tracked. See ARCHITECTURE/.
 kicad-footprints/
+
+.DS_Store
