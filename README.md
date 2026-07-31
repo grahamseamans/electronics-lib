@@ -14,7 +14,9 @@ electronics-lib/
 ├── ARCHITECTURE/README.md     the spec: partitions, contract, rules
 ├── README.md                  you are here
 ├── .gitignore                 ignores kicad-footprints/ and nothing else that matters
-├── authored/                  TRACKED. Footprints drawn here. Irreplaceable.
+├── authored/                  TRACKED. Drawn or repaired here. Irreplaceable.
+│   ├── Button_Switch_THT.pretty/
+│   │   └── SW_TACT_6MM_THT.kicad_mod
 │   └── Rotary_Encoder.pretty/
 │       └── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
 ├── kicad-footprints/          GITIGNORED. Pinned upstream mirror. Reproducible.
@@ -46,6 +48,15 @@ told you it was disposable and could be rebuilt identically. It could not: the r
 recipe starts with `rm -rf`. One `.kicad_mod` derived pad-by-pad from a manufacturer
 drawing was one documented maintenance step away from being deleted with no copy in any
 repository. It is now at `authored/Rotary_Encoder.pretty/` and committed.
+
+**It happened a second time, in a worse place.** `SW_TACT_6MM_THT` — the tactile switch
+on every button of the press board — resolved into
+`/workspace/acoustics/active-bass-trap/pcb/parts/`, a **dead project that is not a git
+repository at all**. That copy is not interchangeable with upstream's `SW_PUSH_6mm`: its
+pads are renumbered `1,1,2,2 → 1,2,3,4`, which is a real edit somebody made and nothing
+recorded except a line in that project's SHORTCUTS. A `rm -rf` in a directory nobody
+owns would have taken it. It is now at `authored/Button_Switch_THT.pretty/` and
+committed, and `press` reads it from here (2026-07-31).
 
 The invariant that keeps this from recurring is mechanical. Check it any time:
 
@@ -103,21 +114,22 @@ checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this re
 
 **Build-time / runtime readers — resolve paths into this directory when they run:**
 
-- **`/workspace/press`** — the only one. Two modules under `press/spike/`:
-  - `spike_stack_mechanical_data.py` defines both roots as separate named constants,
+- **`/workspace/press`** — the only one. Two modules, both inside the `press` package
+  since the 2026-07-31 restructure that retired `press/spike/`:
+  - `press/parts/registry.py` defines both roots as separate named constants,
     `REPRODUCIBLE_UPSTREAM_KICAD_MIRROR_ROOT` and
-    `IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT`, and maps **10** entries onto them in
-    `FOOTPRINT_SOURCE_PATH_BY_ENTRY_NAME`: **6** from the mirror (`MountingHole`,
-    `LED_SMD`, `Package_SO`, `Resistor_SMD`, `Capacitor_SMD`,
-    `Connector_PinHeader_2.54mm`), **1** from `authored/` (the Bourns encoder),
-    **2** deliberately project-local and saying so at the path (a VBUS-bridged USB-C
-    receptacle and a panel support post, both under `press/spike/footprints/`), and
-    **1** that resolves into `/workspace/acoustics/active-bass-trap/pcb/parts/` — see
-    "Known gaps".
-  - `spike_board_build.py` imports the mirror root from the module above (it used to
+    `IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT` — now read from `press/press.toml`, press's
+    machine-configuration file, rather than typed into the source — and maps **10**
+    entries onto them in `FOOTPRINT_SOURCE_PATH_BY_ENTRY_NAME`: **6** from the mirror
+    (`MountingHole`, `LED_SMD`, `Package_SO`, `Resistor_SMD`, `Capacitor_SMD`,
+    `Connector_PinHeader_2.54mm`), **2** from `authored/` (the Bourns encoder and the
+    tactile switch), and **2** vendored inside press itself and saying so at the path (a
+    VBUS-bridged USB-C receptacle and a panel support post, both under
+    `press/press/parts/footprints/`).
+  - `press/fab/board_build.py` imports the mirror root from the module above (it used to
     keep a second literal of its own).
-  - Runtime note: the spike modules need **kiutils**, which lives in
-    `press/spike/.venv`, *not* in `press/.venv`.
+  - Runtime note: press has **one** venv now, `press/.venv`, and kiutils is in it. The
+    separate `press/spike/.venv` is gone.
 
 **Authoring-time vendorer — reads this library, writes a converted copy into itself:**
 
@@ -128,7 +140,7 @@ checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this re
   library nickname and entry, drops the 3D `(model …)` refs, then **re-reads what it
   wrote and asserts the pad-name set**. No fallbacks; a mismatch raises. It is not
   invoked by any build. Its docstring's `pip install kiutils` recipe needs network;
-  offline, run it with `/workspace/press/spike/.venv/bin/python`.
+  offline, run it with `/workspace/press/.venv/bin/python`.
 
 **Historic vendorer — copied out of here once, no longer reads it:**
 
@@ -267,13 +279,15 @@ project needs to vendor, promote that script into `tools/` rather than copying i
 
 ## Known gaps
 
-- **`press` reads one footprint out of `acoustics`, not out of this library**:
-  `SW_TACT_6MM_THT` resolves to
-  `/workspace/acoustics/active-bass-trap/pcb/parts/Generic_Tactile_Pushbutton/`. That
-  copy has its pads renumbered `1,1,2,2 → 1,2,3,4` relative to upstream
-  (`acoustics/.../pcb/SHORTCUTS.md §B`), so it is not interchangeable with
-  `Button_Switch_THT.pretty/SW_PUSH_6mm`. A cross-project footprint dependency is a
-  contract violation and the entry is under separate review; it is untouched here.
+- ~~**`press` reads one footprint out of `acoustics`, not out of this library**~~
+  **CLOSED 2026-07-31.** `SW_TACT_6MM_THT` is now at
+  `authored/Button_Switch_THT.pretty/` and press resolves it here. It is kept as its own
+  entry rather than pointed at upstream's `SW_PUSH_6mm` because its pads are renumbered
+  `1,1,2,2 → 1,2,3,4` (`acoustics/.../pcb/SHORTCUTS.md §B`) and the two are therefore
+  not interchangeable. **Its origin is still on pad 1, not on the plunger axis**, so it
+  does not yet satisfy this library's own ingest rule; normalising it would move every
+  button on the press board, so that is a separate, deliberate change. Recorded in
+  `press/SHORTCUTS.md`.
 - **`acoustics`, `synth` and `hifi` hold vendored copies** predating the
   reference-and-add doctrine. Migrating them is a separate, deliberate decision.
 - **No `.kicad_sym` symbols and no `.step` models** are mirrored — footprints only.
