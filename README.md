@@ -17,11 +17,13 @@ electronics-lib/
 ├── authored/                  TRACKED. Drawn or repaired here. Irreplaceable.
 │   ├── Button_Switch_THT.pretty/
 │   │   └── SW_TACT_6MM_THT.kicad_mod
+│   ├── LED_SMD.pretty/
+│   │   └── LED_SK6812_EC15_1.5x1.5mm.kicad_mod   REPAIRED copy of the mirror's entry
 │   └── Rotary_Encoder.pretty/
 │       └── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
 ├── kicad-footprints/          GITIGNORED. Pinned upstream mirror. Reproducible.
 │   ├── LICENSE.md   README.md   fp-lib-table
-│   └── *.pretty/              21 libraries, 3,117 footprints, 21 MB
+│   └── *.pretty/              22 libraries, 3,175 footprints, 21 MB
 └── tools/
     └── pdf_vector_probe.py    UNUSED - see "Tools" below
 ```
@@ -57,6 +59,19 @@ pads are renumbered `1,1,2,2 → 1,2,3,4`, which is a real edit somebody made an
 recorded except a line in that project's SHORTCUTS. A `rm -rf` in a directory nobody
 owns would have taken it. It is now at `authored/Button_Switch_THT.pretty/` and
 committed, and `press` reads it from here (2026-07-31).
+
+**The third case is not a rescue but a REPAIR, and it is the reason this tree may hold a
+file whose name already exists in the mirror.** Upstream's
+`LED_SMD:LED_SK6812_EC15_1.5x1.5mm` carries a pin-1 marker glyph on F.SilkS at 0.3 mm high
+and 0.075 mm thick. That is illegal silkscreen under press's board rules (0.8 mm / 0.08 mm)
+and it is on 33 LEDs, so it was 70 of that board's 121 DRC warnings. It cannot be enlarged —
+a legal 0.8 mm glyph is bigger than the 1.5 x 1.5 mm part it labels — and the mirror may not
+be edited, so the fixed copy lives at `authored/LED_SMD.pretty/` with the glyph moved to
+F.Fab, the assembly-drawing layer, which has no minimum-text rule and still tells a human
+hand-placing the part which corner is pin 1 (2026-08-25). It keeps upstream's entry name;
+what that costs is `press/SHORTCUTS.md` #139. Its `descr` records the mirror commit it was
+copied from and names the single line that differs, which is what makes a repair auditable
+rather than a fork.
 
 The invariant that keeps this from recurring is mechanical. Check it any time:
 
@@ -120,12 +135,12 @@ checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this re
     `REPRODUCIBLE_UPSTREAM_KICAD_MIRROR_ROOT` and
     `IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT` — now read from `press/press.toml`, press's
     machine-configuration file, rather than typed into the source — and maps **10**
-    entries onto them in `FOOTPRINT_SOURCE_PATH_BY_ENTRY_NAME`: **6** from the mirror
-    (`MountingHole`, `LED_SMD`, `Package_SO`, `Resistor_SMD`, `Capacitor_SMD`,
-    `Connector_PinHeader_2.54mm`), **2** from `authored/` (the Bourns encoder and the
-    tactile switch), and **2** vendored inside press itself and saying so at the path (a
-    VBUS-bridged USB-C receptacle and a panel support post, both under
-    `press/press/parts/footprints/`).
+    entries onto them in `FOOTPRINT_SOURCE_PATH_BY_ENTRY_NAME`: **5** from the mirror
+    (`MountingHole`, `Package_SO`, `Resistor_SMD`, `Capacitor_SMD`,
+    `Connector_PinHeader_2.54mm`), **3** from `authored/` (the Bourns encoder, the
+    tactile switch and — since 2026-08-25 — the SK6812 LED), and **2** vendored inside
+    press itself and saying so at the path (a VBUS-bridged USB-C receptacle and a panel
+    support post, both under `press/press/parts/footprints/`).
   - `press/fab/board_build.py` imports the mirror root from the module above (it used to
     keep a second literal of its own).
   - Runtime note: press has **one** venv now, `press/.venv`, and kiutils is in it. The
@@ -221,12 +236,13 @@ git sparse-checkout set --no-cone \
   LED_SMD.pretty LED_THT.pretty MountingHole.pretty \
   Package_SO.pretty Package_TO_SOT_SMD.pretty Package_TO_SOT_THT.pretty \
   Potentiometer_THT.pretty Resistor_SMD.pretty Resistor_THT.pretty \
-  Rotary_Encoder.pretty TerminalBlock.pretty TerminalBlock_Phoenix.pretty
+  Rotary_Encoder.pretty TerminalBlock.pretty TerminalBlock_Phoenix.pretty \
+  TestPoint.pretty
 git sparse-checkout add '/LICENSE.md' '/fp-lib-table' '/README.md'
 git checkout
 ```
 
-**Result: 21 `*.pretty` libraries, 3,117 footprints, 21 MB working tree (+3.8 MB
+**Result: 22 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad), 3,175 footprints, ~21 MB working tree (+3.8 MB
 `.git`).** Verify:
 
 ```bash
