@@ -58,7 +58,7 @@
 			(width 0.1)
 			(type solid)
 		)
-		(layer "F.SilkS")
+		(layer "F.Fab")
 		(uuid "88929900-b406-4533-ad45-2af3724c774a")
 	)
 	(fp_line
@@ -118,7 +118,7 @@
 			(width 0.1)
 			(type solid)
 		)
-		(layer "F.SilkS")
+		(layer "F.Fab")
 		(uuid "72aad446-a424-40c5-989d-0c8f791cd873")
 	)
 	(fp_arc
@@ -129,7 +129,7 @@
 			(width 0.1)
 			(type solid)
 		)
-		(layer "F.SilkS")
+		(layer "F.Fab")
 		(uuid "59617c7b-d8eb-45d1-99e2-abfa233c546a")
 	)
 	(fp_arc
@@ -140,7 +140,7 @@
 			(width 0.1)
 			(type solid)
 		)
-		(layer "F.SilkS")
+		(layer "F.Fab")
 		(uuid "7954a53b-c231-45dc-9ce7-6645c58c7958")
 	)
 	(fp_arc
@@ -173,7 +173,7 @@
 			(width 0.1)
 			(type solid)
 		)
-		(layer "F.SilkS")
+		(layer "F.Fab")
 		(uuid "eaecb0e7-7db3-4152-b262-bf2c45052614")
 	)
 	(fp_arc
@@ -184,7 +184,7 @@
 			(width 0.1)
 			(type solid)
 		)
-		(layer "F.SilkS")
+		(layer "F.Fab")
 		(uuid "e1b07fec-f110-4afc-9734-dff22c9f9b69")
 	)
 	(fp_circle
