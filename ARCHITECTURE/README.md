@@ -129,9 +129,6 @@ part's datum records the offset in its own code, once, next to the entry.
 
 ## Violations, current
 
-* `tools/pdf_vector_probe.py` has no caller anywhere in the workspace. It is kept
-  deliberately — it is how datasheet linework was cross-read — but an uncalled tool is
-  a partition-3 member with no contract. Either give it one or delete it.
 * `acoustics/`, `synth/` and `hifi/` hold vendored footprint copies predating rule 4.
   Migrating them is a separate, deliberate decision and is not blocked on anything
   here.
