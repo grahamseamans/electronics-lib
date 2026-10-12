@@ -139,7 +139,7 @@ What the manufacturer drawing does not give, and the author chose, is listed her
 
 - `RotaryEncoder_Alps_EC12E_Vertical_20mmShaft` (2026-10-10): pin pad diameter 1.8, leg copper 3.0 x 3.1, courtyard, silk, leg plating and pad name `MP`. Hole sizes and positions are sourced (catalogue p.277, drawing No. 1).
 - `SW_MX_HanElectricity_CPG151101D01_THT` (2026-10-12): pad diameter 2.5, courtyard, pad numbers 1/2 (drawing labels terminals 8/11), 3.81 for the drawing's 3.80 (within tolerance), LED-window centre y +4.7 (scaled from the layout grid, +/-0.3) and its 3.5 x 2.8 orientation. Contact holes, centre post, body outline sourced (Han sheet, PDF pp.6 and 8).
-- `LED_SK6812MINI-E_ReverseMount_3.2x2.8mm` (2026-10-12): cutout corner radius 0.5 (inferred from JLC's 1.0 mm min slot width) clips the body's square corners ~0.15 mm and the datasheet chamfer is not reproduced; sourced pads touch the cutout edge, overlapping the rounded corner by ~0.06 mm; courtyard. Pads, cutout size, pin map sourced (OPSCO Rev.04 p.4).
+- `LED_SK6812MINI-E_ReverseMount_3.2x2.8mm` (2026-10-12): dog-bone cutout corners (dia 1.00 notches at (+/-1.6, +/-1.85), inferred from JLC's 1.0 mm min non-plated slot width; notches clear the pads by 0.19 mm), notch offset 0.45, datasheet chamfer not reproduced, pads abut the cutout edge, courtyard. Pads, cutout size, pin map sourced (OPSCO Rev.04 p.4).
 - `OLED_HS13L03W2C01_1.3in_FrontPanel` (2026-10-12): window = active area + 0.5 per side (30.42 x 15.70), corner radius 0.5, courtyard. Holes (30.40 x 28.50), 2.05 offset, active area, 31.42 x 16.70 aperture sourced (datasheet 1.4).
 - `JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal` is NOT authored: it exists in the mirror (`Connector_JST`); reference it.
 
