@@ -19,7 +19,8 @@ electronics-lib/
 │   │   ├── SW_MX_HanElectricity_CPG151101D01_THT.kicad_mod   MX-style key switch C49234238 / C49234235
 │   │   └── SW_TACT_6MM_THT.kicad_mod
 │   ├── Display.pretty/
-│   │   └── OLED_HS13L03W2C01_1.3in_FrontPanel.kicad_mod   HS13L03W2C01 holes + window, front panel only
+│   │   ├── OLED_HS13L03W2C01_1.3in_FrontPanel.kicad_mod   HS13L03W2C01 holes + window, front panel only
+│   │   └── OLED_HS13L03W2C01_MidBoard_JST_SH_SM04B-SRSS-TB_Socket.kicad_mod   its pigtail socket, origin on the active area
 │   ├── LED_SMD.pretty/
 │   │   ├── LED_SK6805_EC14_1.4x1.4mm.kicad_mod   press build 1's LED (ordered 2026-09-25)
 │   │   └── LED_SK6812MINI-E_ReverseMount_3.2x2.8mm.kicad_mod   reverse-mount, carries its own Edge.Cuts cutout
