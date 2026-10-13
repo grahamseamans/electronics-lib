@@ -20,7 +20,9 @@ electronics-lib/
 │   │   └── SW_TACT_6MM_THT.kicad_mod
 │   ├── Display.pretty/
 │   │   ├── OLED_HS13L03W2C01_1.3in_FrontPanel.kicad_mod   HS13L03W2C01 holes + window, front panel only
-│   │   └── OLED_HS13L03W2C01_MidBoard_JST_SH_SM04B-SRSS-TB_Socket.kicad_mod   its pigtail socket, origin on the active area
+│   │   └── OLED_HS13L03W2C01_1.3in_MidBoard_Courtyard.kicad_mod   the module's courtyard over the middle board, no pads, origin on the active area
+│   ├── Connector_JST.pretty/
+│   │   └── JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal_UniquePadNames.kicad_mod   upstream's SM04B-SRSS-TB with its two MP pads named MP_1 / MP_2
 │   ├── LED_SMD.pretty/
 │   │   ├── LED_SK6805_EC14_1.4x1.4mm.kicad_mod   press build 1's LED (ordered 2026-09-25)
 │   │   └── LED_SK6812_EC20_2.0x2.0mm.kicad_mod   SK6812-EC20 C2909058, top mount (2026-10-12)
@@ -143,7 +145,8 @@ What the manufacturer drawing does not give, and the author chose, is listed her
 - `LED_SK6812_EC20_2.0x2.0mm` (2026-10-12): courtyard (land + 0.25: +/-1.3 x +/-1.2), pin-1 silk bracket, F.Fab chamfer size; emitter at the body centre rests on symmetry. Pads (0.8 x 0.7 on 0.5 gaps), body 2.0 x 2.0 x 0.65, pin map sourced (OPSCO SK6812-EC20-001 Rev. A/2, PDF pp.4-5).
 - The reverse-mount `LED_SK6812MINI-E_ReverseMount_3.2x2.8mm` was deleted on 2026-10-12 (press dropped the part: every part on the top, JLC Economic). It is in git history (2f788a6, 16a108d).
 - `OLED_HS13L03W2C01_1.3in_FrontPanel` (2026-10-12): window = active area + 0.5 per side (30.42 x 15.70), corner radius 0.5, courtyard. Holes (30.40 x 28.50), 2.05 offset, active area, 31.42 x 16.70 aperture sourced (datasheet 1.4).
-- `JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal` is NOT authored: it exists in the mirror (`Connector_JST`); reference it.
+- `JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal` (2026-10-13): upstream's, with ONLY its two mounting pads renamed MP_1 / MP_2 (`..._UniquePadNames`), because press refuses a footprint that names two pads alike. The screen's socket is this part, on its own; it is no longer part of the display footprint.
+- `OLED_HS13L03W2C01_1.3in_MidBoard_Courtyard` (2026-10-13): the module's courtyard over the middle board, no pads, origin on the active-area centre (the front-panel footprint's datum).
 
 ---
 
