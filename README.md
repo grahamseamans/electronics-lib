@@ -236,42 +236,24 @@ same change. The recipe going stale is how it came to claim 16 when 21 were on d
 > (43). Three of those five — `Resistor_SMD`, `Capacitor_SMD`, `MountingHole` — are
 > among the 6 upstream libraries `press` resolves at runtime; `Rotary_Encoder` is where
 > the authored Bourns encoder was living; `Connector_USB` is what press's vendored
-> USB-C receptacle was derived from. The list below is verified against
+> USB-C receptacle was derived from. The list in the script is verified against
 > `git sparse-checkout list` and against what is actually on disk; the two agree
 > exactly.
 
 ```bash
-cd /workspace/electronics-lib
-rm -rf kicad-footprints
-
-# Blobless, no-checkout clone of the GitHub mirror of the official KiCad library
-git clone --filter=blob:none --no-checkout \
-  https://github.com/KiCad/kicad-footprints.git kicad-footprints
-cd kicad-footprints
-
-# Pin to the exact commit this library is built from (reproducibility)
-git checkout 7ebfa6b23cc292a56f751b7b5f4a0e12eeef69dd
-
-# Sparse-checkout ONLY the 21 libraries we use (not the full ~1 GB repo)
-git sparse-checkout init --no-cone
-git sparse-checkout set --no-cone \
-  Button_Switch_THT.pretty Capacitor_SMD.pretty Capacitor_THT.pretty \
-  Connector_IDC.pretty Connector_JST.pretty Connector_PinHeader_2.54mm.pretty \
-  Connector_USB.pretty Diode_SMD.pretty Diode_THT.pretty \
-  LED_SMD.pretty LED_THT.pretty MountingHole.pretty \
-  Package_SO.pretty Package_TO_SOT_SMD.pretty Package_TO_SOT_THT.pretty \
-  Potentiometer_THT.pretty Resistor_SMD.pretty Resistor_THT.pretty \
-  Rotary_Encoder.pretty TerminalBlock.pretty TerminalBlock_Phoenix.pretty \
-  TestPoint.pretty
-git sparse-checkout add '/LICENSE.md' '/fp-lib-table' '/README.md'
-git checkout
+tools/fetch-kicad-footprints.sh   # refuses if kicad-footprints/ exists; delete it first to rebuild
 ```
+
+The script is the recipe: it clones the GitHub mirror of the official KiCad library blobless,
+checks out the pinned commit and sparse-checks-out exactly the libraries it lists, then refuses
+if the count on disk differs. press runs it as `make footprints` (electronics-lib is a submodule
+of press since 2026-10-12).
 
 **Result: 22 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad), 3,175 footprints, ~21 MB working tree (+3.8 MB
 `.git`).** Verify:
 
 ```bash
-cd /workspace/electronics-lib/kicad-footprints
+cd kicad-footprints
 diff <(git sparse-checkout list | grep '\.pretty$' | sort) <(ls -d *.pretty | sort)
 find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 3117
 git status --porcelain                                       # empty
