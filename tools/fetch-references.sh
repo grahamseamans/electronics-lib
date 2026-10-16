@@ -38,6 +38,9 @@ SOURCES=(
     "ti slaa788a.pdf https://www.ti.com/lit/pdf/slaa788"
     "ti slou441-tpa3255evm-users-guide.pdf https://www.ti.com/lit/pdf/slou441"
     "ti slar130-tpa3255evm-bom.pdf https://www.ti.com/lit/pdf/slar130"
+    # AES3 input isolation transformer, DA101JC (Transformer_SMD.pretty/Transformer_Murata_DA100J_...);
+    # www.murata.com / murata-ps.com answer 500, power.murata.com serves the PDF (KMP_DA100JC_B01)
+    "murata kmp_da100j.pdf https://power.murata.com/data/magnetics/kmp_da100j.pdf"
 )
 
 for source in "${SOURCES[@]}"; do
