@@ -41,7 +41,7 @@ electronics-lib/
 │       └── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
 ├── kicad-footprints/          GITIGNORED. Pinned upstream mirror. Reproducible.
 │   ├── LICENSE.md   README.md   fp-lib-table
-│   └── *.pretty/              23 libraries, 3,376 footprints
+│   └── *.pretty/              24 libraries, 3,594 footprints
 ├── references/                GITIGNORED. The primary sources (datasheets, drawings) footprints were drawn from.
 └── tools/
     ├── fetch-kicad-footprints.sh   builds kicad-footprints/
@@ -226,7 +226,7 @@ checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this re
 
 ## Adding a part
 
-1. **Look in the mirror first.** 3,376 footprints across 23 libraries; the part is
+1. **Look in the mirror first.** 3,594 footprints across 24 libraries; the part is
    often already there. If it is, reference it — do not copy it.
 2. **If it is not there, author it into `authored/<Category>.pretty/`**, using KiCad's
    category name so the two trees compose. Pads come from the manufacturer's own
@@ -271,13 +271,13 @@ checks out the pinned commit and sparse-checks-out exactly the libraries it list
 if the count on disk differs. press runs it as `make footprints` (electronics-lib is a submodule
 of press since 2026-10-12).
 
-**Result: 23 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad; Connector_Audio.pretty 2026-10-16 for the A2 board's Neutrik XLRs), 3,376 footprints (counted 2026-10-16), ~21 MB working tree (+3.8 MB
+**Result: 24 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad; Connector_Audio.pretty 2026-10-16 for the A2 board's Neutrik XLRs; Inductor_SMD.pretty 2026-10-16 for the A2 board's buck inductors), 3,594 footprints (counted 2026-10-16), ~21 MB working tree (+3.8 MB
 `.git`).** Verify:
 
 ```bash
 cd kicad-footprints
 diff <(git sparse-checkout list | grep '\.pretty$' | sort) <(ls -d *.pretty | sort)
-find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 3376
+find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 3594
 git status --porcelain                                       # empty
 ```
 
@@ -295,6 +295,7 @@ git status --porcelain                                       # empty
 | Connector_USB | 43 | USB-C receptacle (HRO TYPE-C-31-M-12) |
 | Diode_SMD | 73 | SOD-123 (Zener, 1N4148W) |
 | Diode_THT | 108 | DO-41 (UF4007) |
+| Inductor_SMD | 218 | Bourns SRR1260 / SRN6045TA (A2 board 12 V and 5 V buck inductors) |
 | LED_SMD | 68 | 0805 indicator, SK6805 EC15 — **read live by press** |
 | LED_THT | 82 | THT indicator LEDs |
 | MountingHole | 166 | M3 pads and plain holes — **read live by press** |
