@@ -38,7 +38,8 @@ electronics-lib/
 │   │   └── Transformer_Murata_DA100J_9.52x9.0mm_P2.54mm.kicad_mod   DA101JC AES3 input isolation transformer (A2 speaker, 2026-10-16)
 │   └── Rotary_Encoder.pretty/
 │       ├── RotaryEncoder_Alps_EC12E_Vertical_20mmShaft.kicad_mod   EC12E2430404 and EC12E24204A8 (shared drawing No. 1)
-│       └── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
+│       ├── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
+│       └── RotaryEncoder_Bourns_PEC12R-4017F-N0024_Vertical_17.5mmShaft.kicad_mod   PEC12R 4xxx no-bushing, axial pins (2026-10-16)
 ├── kicad-footprints/          GITIGNORED. Pinned upstream mirror. Reproducible.
 │   ├── LICENSE.md   README.md   fp-lib-table
 │   └── *.pretty/              24 libraries, 3,594 footprints
@@ -153,6 +154,7 @@ provenance.
 What the manufacturer drawing does not give, and the author chose, is listed here and in each file's `descr`.
 
 - `RotaryEncoder_Alps_EC12E_Vertical_20mmShaft` (2026-10-10): pin pad diameter 1.8, leg copper 3.0 x 3.1, courtyard, silk, leg plating and pad name `MP`. Hole sizes and positions are sourced (catalogue p.277, drawing No. 1).
+- `RotaryEncoder_Bourns_PEC12R-4017F-N0024_Vertical_17.5mmShaft` (2026-10-16): collar o7.0 (page 4 does not dimension it; 7.0 is the page 2 radial-pin drawing's DIA callout), body split -6.2 / +7.2 of the 13.4 (measured), pad copper 1.8 / 3.0 x 3.1, courtyard, silk, leg pad name `MP`. Holes, pitch, row distance, body 12.4 x 13.4, shaft o6.0 / 4.5 flat sourced (Bourns PEC12R rev 07/21 p.4, 4xxx drawing).
 - `SW_MX_HanElectricity_CPG151101D01_THT` (2026-10-12): pad diameter 2.5, courtyard, pad numbers 1/2 (drawing labels terminals 8/11), 3.81 for the drawing's 3.80 (within tolerance), LED-window centre y +4.7 (scaled from the layout grid, +/-0.3) and its 3.5 x 2.8 orientation. Contact holes, centre post, body outline sourced (Han sheet, PDF pp.6 and 8). The LED window is a HOLE in the courtyard (a second F.CrtYd rectangle) so a top-side lamp in it is not a courtyard overlap; that KiCad treats it as a hole is measured (kicad-cli 9.0.9 DRC, 2026-10-12), not documented.
 - `LED_SK6812_EC20_2.0x2.0mm` (2026-10-12): courtyard (land + 0.25: +/-1.3 x +/-1.2), pin-1 silk bracket, F.Fab chamfer size; emitter at the body centre rests on symmetry. Pads (0.8 x 0.7 on 0.5 gaps), body 2.0 x 2.0 x 0.65, pin map sourced (OPSCO SK6812-EC20-001 Rev. A/2, PDF pp.4-5).
 - The reverse-mount `LED_SK6812MINI-E_ReverseMount_3.2x2.8mm` was deleted on 2026-10-12 (press dropped the part: every part on the top, JLC Economic). It is in git history (2f788a6, 16a108d).
