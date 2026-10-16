@@ -10,3 +10,7 @@
 kicad-footprints/
 
 .DS_Store
+
+# Primary sources (datasheets, manufacturer drawings) are FETCHED CONTENT too: tools/fetch-references.sh
+# is the record of what was fetched and from where, and rebuilds this folder.
+references/

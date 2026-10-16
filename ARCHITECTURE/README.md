@@ -12,7 +12,7 @@ does the authoritative footprint for this part live* — with exactly one answer
 
 ## The partitions
 
-Three, and the split is by **what would happen if the directory were deleted**. That
+Four, and the split is by **what would happen if the directory were deleted**. That
 is the only axis that matters here, because getting it wrong is what has already cost
 this workspace a near-loss of original work.
 
@@ -20,6 +20,7 @@ this workspace a near-loss of original work.
 electronics-lib/
 ├── authored/<Category>.pretty/    IRREPLACEABLE   -> tracked in git
 ├── kicad-footprints/              REPRODUCIBLE    -> gitignored, pinned, pristine
+├── references/                    REPRODUCIBLE    -> gitignored, rebuilt by tools/fetch-references.sh
 └── tools/                         CODE            -> tracked in git
 ```
 
@@ -55,7 +56,17 @@ electronics-lib/
   own. That is the entire benefit of keeping it separate, and it only holds while the
   invariant above holds.
 
-### 3. `tools/` — code that operates on footprints
+### 3. `references/` — the primary sources
+
+**Pattern: fetched datasheets and manufacturer drawings, one subfolder per maker. Gitignored; the URL
+list in `tools/fetch-references.sh` is the tracked record and the rebuild recipe.**
+
+* Every source an `authored/` footprint's `descr` cites, and every source a consumer's upstream datum
+  offset was measured from, is a line in that script. A `descr` naming a document the script does not
+  fetch is a provenance gap.
+* Nothing here is edited. A drawing that has to be annotated is annotated in the footprint's `descr`.
+
+### 4. `tools/` — code that operates on footprints
 
 **Pattern: standalone Python scripts, no shared package, no implicit state.**
 
