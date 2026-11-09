@@ -28,6 +28,7 @@ SOURCES=(
     "nxp IMXRT1060CEC_rev4.pdf https://www.pjrc.com/teensy/IMXRT1060CEC_rev4.pdf"
     "skyworks si5341-40-d-datasheet.pdf https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/data-sheets/si5341-40-d-datasheet.pdf"
     "ti dp83825i.pdf https://www.ti.com/lit/ds/symlink/dp83825i.pdf"
+"ti mspm0l1306.pdf https://www.ti.com/lit/ds/symlink/mspm0l1306.pdf"
     "abracon ABM8.pdf https://abracon.com/Resonators/abm8.pdf"
     "sitime SiT5156.pdf https://www.sitime.com/datasheet/SiT5156"
     # CS4308S: DS1389F1 supplied by the user 2026-11-09, no public URL known; the sheet lives in audio-reproduction-systems references/dacs/ (provenance gap: not fetchable here)
