@@ -24,6 +24,14 @@ SOURCES=(
     "neutrik st-nc3fah2.dxf https://www.neutrik.com/media/11729/download/st-nc3fah2.dxf?v=2"
     "neutrik nc3mah-2.pdf https://www.neutrik.com/media/8308/download/nc3mah-2.pdf?v=1"
     "neutrik nc3mah-3.dxf https://www.neutrik.com/media/11746/download/nc3mah-3.dxf?v=1"
+    # network-amp-4ch board (2026-11-09): RT1062 ball map + MAPBGA, Si5340 44-QFN, DP83825I WQFN, CS4308S QFN land patterns, crystal, TCXO, RJ45
+    "nxp IMXRT1060CEC_rev4.pdf https://www.pjrc.com/teensy/IMXRT1060CEC_rev4.pdf"
+    "skyworks si5341-40-d-datasheet.pdf https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/data-sheets/si5341-40-d-datasheet.pdf"
+    "ti dp83825i.pdf https://www.ti.com/lit/ds/symlink/dp83825i.pdf"
+    "abracon ABM8.pdf https://abracon.com/Resonators/abm8.pdf"
+    "sitime SiT5156.pdf https://www.sitime.com/datasheet/SiT5156"
+    # CS4308S: DS1389F1 supplied by the user 2026-11-09, no public URL known; the sheet lives in audio-reproduction-systems references/dacs/ (provenance gap: not fetchable here)
+    "handsontec HR911105A.pdf https://handsontec.com/dataspecs/connector/RJ-45%20Ethernet-2.pdf"
     # class-D output inductor (Inductor_THT.pretty/L_Coilcraft_MA5172-AE_...)
     "coilcraft ma5172.pdf https://www.coilcraft.com/pdfs/ma5172.pdf"
     # Faston tab (Connector.pretty/Faston_Keystone_1287_...): Keystone catalog page M65p59;
