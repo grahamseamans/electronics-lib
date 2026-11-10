@@ -35,6 +35,20 @@ So the drills are SPACED to satisfy the rule and the copper is joined explicitly
 which is exactly a clearance-derived gap rather than the tightest thing that still touches. Same
 board, same DRC: 4 hole-clearance errors -> 0, with no new clearance or short violations.
 
+THE LANDING RULE (2026-11-10), the one that sets the gap today. The module router (Freerouting)
+lands a track at the CENTRE of the inside terminal, and the outside terminal is the loom's copper,
+which the module route keeps clear at the port net's clearance. So a track of width w and
+clearance c lands only if  centre_gap >= w/2 + c + pad/2.  A net rounds into a tier whose pad is at
+least its track, so the widest track a tier takes is its pad, and the gap is
+
+    centre_gap = max(hole rule, pad + LANDING_CLEARANCE_MM)
+
+MEASURED on the amp board's conn_power (2.0 mm / 0.3 mm pvdd on the 2.0 mm tier): the hole-rule
+gap of 1.85 mm left the pvdd net open in Freerouting 2.2.4, and so did the nominal 2.30 mm; 2.325 mm
+routed (Freerouting approximates round copper with polygons, so it needs a few tens of um beyond
+the nominal). loom's tier round-up (`loom_core::scope::Scope::resolve_port_tier_for_net`) refuses a
+tier whose landing room is too small for a net, loudly.
+
 The bridge is real plotted copper, so the tie is a solid electrical short on the fab board; the
 `net_tie_pad_groups` token is what stops DRC calling that short a defect.
 
@@ -61,6 +75,13 @@ OUTPUT_LIBRARY_DIRECTORY = os.path.join(IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT, "
 # "board setup constraints hole clearance 0.2500 mm". This is hole-to-COPPER, which is why the two
 # terminals cannot simply be butted together (see the module docstring).
 HOLE_CLEARANCE_MM = 0.25
+
+# The clearance a track as wide as the tier's pad keeps from the OUTSIDE terminal while landing at
+# the inside terminal's centre (the landing rule, module docstring): 0.3 mm, the widest netclass
+# clearance the boards use (the 48 V pvdd and speaker classes, audio-reproduction-systems
+# boards/amp-tpa3255-2ch/netlist/board.json), plus 0.1 mm for the router's polygonal round copper
+# (measured: 0.025 mm was needed at 2.0 mm; 0.1 mm keeps that margin at every approach angle).
+LANDING_CLEARANCE_MM = 0.4
 
 # Courtyard inflation (mm) beyond the copper extent.
 COURTYARD_MARGIN_MM = 0.15
@@ -90,12 +111,16 @@ PORT_TIER_SHELF = (
 
 
 def tie_centre_gap_mm(via_pad_diameter_mm: float, via_drill_diameter_mm: float) -> float:
-    """Centre-to-centre distance between the two vias: the TIGHTEST spacing at which each drill
-    still clears the OTHER terminal's copper by `HOLE_CLEARANCE_MM`.
+    """Centre-to-centre distance between the two vias: the larger of the HOLE rule (each drill
+    clears the OTHER terminal's copper by `HOLE_CLEARANCE_MM`) and the LANDING rule (a track as
+    wide as the pad lands on the inside terminal's centre `LANDING_CLEARANCE_MM` clear of the
+    outside terminal). See the module docstring.
 
-    This is the whole care point of the geometry, and it is the number `loom-core`'s
-    `PortTier::resolve_footprint` re-derives so a tier that would DRC-error is refused at load."""
-    return HOLE_CLEARANCE_MM + via_drill_diameter_mm / 2.0 + via_pad_diameter_mm / 2.0
+    `loom-core`'s `PortTier::resolve_footprint` re-checks the hole rule at load, and its tier
+    round-up checks the landing rule per net."""
+    hole_rule_gap_mm = HOLE_CLEARANCE_MM + via_drill_diameter_mm / 2.0 + via_pad_diameter_mm / 2.0
+    landing_rule_gap_mm = via_pad_diameter_mm + LANDING_CLEARANCE_MM
+    return max(hole_rule_gap_mm, landing_rule_gap_mm)
 
 
 def render_port_net_tie_footprint(
@@ -149,10 +174,11 @@ def render_port_net_tie_footprint(
 Source: electronics/loom/docs/loom.md, the ports section — this is loom's own geometry, \
 not a manufactured part, so its primary source is the spec that defines it. Two through-hole \
 vias {centre_gap_mm:g} mm apart, joined by a {via_pad_diameter_mm:g} mm wide copper BRIDGE on \
-every outer copper layer. That spacing is the tightest at which each drill still clears the other \
-terminal's copper by KiCad's {HOLE_CLEARANCE_MM:g} mm hole clearance \
-({hole_to_other_terminal_copper_mm:g} mm actual) — butting the vias until their rings overlapped \
-instead is what KiCad 9 DRC rejects, and the two constraints cannot both hold with round vias. \
+every outer copper layer. That spacing lets a track as wide as the pad land on the inside \
+terminal's centre {LANDING_CLEARANCE_MM:g} mm clear of the outside terminal (the module router lands \
+at the centre), and leaves each drill {hole_to_other_terminal_copper_mm:g} mm from the other \
+terminal's copper (KiCad's hole clearance is {HOLE_CLEARANCE_MM:g} mm); butting the vias until their \
+rings overlapped is what KiCad 9 DRC rejects. \
 Pad 1 = INSIDE (module net, -y); pad 2 = OUTSIDE (loom net, +y); loom.md puts the port row on the \
 module's bottom, and KiCad y is DOWN. Origin = the tie centre (the port anchor). Regenerate with \
 electronics-lib/tools/generate_loom_port_net_ties.py.")
