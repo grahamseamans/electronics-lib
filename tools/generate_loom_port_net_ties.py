@@ -146,7 +146,7 @@ def render_port_net_tie_footprint(
 
     return f"""(footprint "{entry_name}" (version 20240108) (generator loom) (layer "F.Cu")
   (descr "loom PORT net tie, {via_pad_diameter_mm:g} mm via / {via_drill_diameter_mm:g} mm drill. \
-Source: electronics/loom/docs/loom.md "the ports" section — this is loom's own geometry, \
+Source: electronics/loom/docs/loom.md, the ports section — this is loom's own geometry, \
 not a manufactured part, so its primary source is the spec that defines it. Two through-hole \
 vias {centre_gap_mm:g} mm apart, joined by a {via_pad_diameter_mm:g} mm wide copper BRIDGE on \
 every outer copper layer. That spacing is the tightest at which each drill still clears the other \
