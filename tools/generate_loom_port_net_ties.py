@@ -52,7 +52,7 @@ from __future__ import annotations
 import os
 
 # The two roots are named by KIND, never collapsed into one (electronics-lib ARCHITECTURE rule 1).
-IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT = "/workspace/electronics-lib/authored"
+IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "authored")
 
 OUTPUT_LIBRARY_DIRECTORY = os.path.join(IRREPLACEABLE_AUTHORED_FOOTPRINT_ROOT, "NetTie.pretty")
 
@@ -83,6 +83,9 @@ PORT_TIER_SHELF = (
     ("loom_port_small", 0.6, 0.3),
     ("loom_port_medium", 0.8, 0.4),
     ("loom_port_large", 1.8, 1.1),
+    # 2.0 mm: the 48 V supply and speaker classes of the amp boards (track 2.0 mm) leave their modules
+    # on a port whose pad is at least the track (loom rounds a net UP, never down).
+    ("loom_port_xlarge", 2.0, 1.2),
 )
 
 
@@ -143,7 +146,7 @@ def render_port_net_tie_footprint(
 
     return f"""(footprint "{entry_name}" (version 20240108) (generator loom) (layer "F.Cu")
   (descr "loom PORT net tie, {via_pad_diameter_mm:g} mm via / {via_drill_diameter_mm:g} mm drill. \
-Source: /workspace/loom/docs/loom.md L59-69 (the ports section) — this is loom's own geometry, \
+Source: electronics/loom/docs/loom.md "the ports" section — this is loom's own geometry, \
 not a manufactured part, so its primary source is the spec that defines it. Two through-hole \
 vias {centre_gap_mm:g} mm apart, joined by a {via_pad_diameter_mm:g} mm wide copper BRIDGE on \
 every outer copper layer. That spacing is the tightest at which each drill still clears the other \
