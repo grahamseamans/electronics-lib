@@ -28,6 +28,8 @@ SOURCES=(
     "nxp IMXRT1060CEC_rev4.pdf https://www.pjrc.com/teensy/IMXRT1060CEC_rev4.pdf"
     "skyworks si5341-40-d-datasheet.pdf https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/data-sheets/si5341-40-d-datasheet.pdf"
     "ti dp83825i.pdf https://www.ti.com/lit/ds/symlink/dp83825i.pdf"
+    # LMR38010 buck, DDA0008B HSOIC-8 land pattern (Package_SO.pretty/TI_DDA0008B_HSOIC-8-1EP_..., 2026-11-12)
+    "ti lmr38010.pdf https://www.ti.com/lit/ds/symlink/lmr38010.pdf"
 "ti mspm0l1306.pdf https://www.ti.com/lit/ds/symlink/mspm0l1306.pdf"
     "abracon ABM8.pdf https://abracon.com/Resonators/abm8.pdf"
     "sitime SiT5156.pdf https://www.sitime.com/datasheet/SiT5156"
