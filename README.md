@@ -41,7 +41,7 @@ electronics-lib/
 │       ├── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
 ├── kicad-footprints/          GITIGNORED. Pinned upstream mirror. Reproducible.
 │   ├── LICENSE.md   README.md   fp-lib-table
-│   └── *.pretty/              24 libraries, 3,594 footprints
+│   └── *.pretty/              25 libraries, 3,667 footprints
 ├── references/                GITIGNORED. The primary sources (datasheets, drawings) footprints were drawn from.
 └── tools/
     ├── fetch-kicad-footprints.sh   builds kicad-footprints/
@@ -226,7 +226,7 @@ checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this re
 
 ## Adding a part
 
-1. **Look in the mirror first.** 3,594 footprints across 24 libraries; the part is
+1. **Look in the mirror first.** 3,667 footprints across 25 libraries; the part is
    often already there. If it is, reference it — do not copy it.
 2. **If it is not there, author it into `authored/<Category>.pretty/`**, using KiCad's
    category name so the two trees compose. Pads come from the manufacturer's own
@@ -271,13 +271,13 @@ checks out the pinned commit and sparse-checks-out exactly the libraries it list
 if the count on disk differs. press runs it as `make footprints` (electronics-lib is a submodule
 of press since 2026-10-12).
 
-**Result: 24 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad; Connector_Audio.pretty 2026-10-16 for the A2 board's Neutrik XLRs; Inductor_SMD.pretty 2026-10-16 for the A2 board's buck inductors), 3,594 footprints (counted 2026-10-16), ~21 MB working tree (+3.8 MB
+**Result: 25 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad; Connector_Audio.pretty 2026-10-16 for the A2 board's Neutrik XLRs; Inductor_SMD.pretty 2026-10-16 for the A2 board's buck inductors; Package_SON.pretty 2026-11-13 for the core board's TPS7A39, Texas_DSC0010J), 3,667 footprints (3,594 counted 2026-10-16 + Package_SON's 73 at the pinned commit), ~21 MB working tree (+3.8 MB
 `.git`).** Verify:
 
 ```bash
 cd kicad-footprints
 diff <(git sparse-checkout list | grep '\.pretty$' | sort) <(ls -d *.pretty | sort)
-find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 3594
+find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 3667
 git status --porcelain                                       # empty
 ```
 
@@ -300,6 +300,7 @@ git status --porcelain                                       # empty
 | LED_THT | 82 | THT indicator LEDs |
 | MountingHole | 166 | M3 pads and plain holes — **read live by press** |
 | Package_SO | 303 | SOIC-8/14/16 (TL072, NE555, LM339, 74HCT) — **read live by press** |
+| Package_SON | 73 | Texas_DSC0010J WSON-10 3x3 (TPS7A39 dual LDO, core board rail_opamp); pad 11 = 1.65 x 2.4 thermal pad, as TI's DSC0010J outline (TPS7A39 SBVS263B p.50) |
 | Package_TO_SOT_SMD | 128 | SOT-23 (2N7002, MMBT3904) |
 | Package_TO_SOT_THT | 236 | TO-220-11 staggered (LM3886TF) |
 | Potentiometer_THT | 104 | Bourns 3296W trimmer |

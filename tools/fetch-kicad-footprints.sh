@@ -19,7 +19,7 @@ SPARSE_LIBRARIES=(
     Connector_Audio.pretty Connector_IDC.pretty Connector_JST.pretty Connector_PinHeader_2.54mm.pretty
     Connector_USB.pretty Diode_SMD.pretty Diode_THT.pretty Inductor_SMD.pretty
     LED_SMD.pretty LED_THT.pretty MountingHole.pretty
-    Package_QFP.pretty Package_SO.pretty Package_TO_SOT_SMD.pretty Package_TO_SOT_THT.pretty
+    Package_QFP.pretty Package_SO.pretty Package_SON.pretty Package_TO_SOT_SMD.pretty Package_TO_SOT_THT.pretty
     Potentiometer_THT.pretty Resistor_SMD.pretty Resistor_THT.pretty
     Rotary_Encoder.pretty TerminalBlock.pretty TerminalBlock_Phoenix.pretty
     TestPoint.pretty
