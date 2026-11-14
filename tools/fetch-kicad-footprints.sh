@@ -16,10 +16,10 @@ PINNED_UPSTREAM_COMMIT="7ebfa6b23cc292a56f751b7b5f4a0e12eeef69dd"
 # Widening the mirror means adding the library here; nothing else lists them.
 SPARSE_LIBRARIES=(
     Button_Switch_THT.pretty Capacitor_SMD.pretty Capacitor_THT.pretty
-    Connector_Audio.pretty Connector_IDC.pretty Connector_JST.pretty Connector_PinHeader_2.54mm.pretty
+    Connector_Audio.pretty Connector_IDC.pretty Connector_JST.pretty Connector_PinHeader_1.27mm.pretty Connector_PinHeader_2.54mm.pretty
     Connector_USB.pretty Diode_SMD.pretty Diode_THT.pretty Inductor_SMD.pretty
     LED_SMD.pretty LED_THT.pretty MountingHole.pretty
-    Package_QFP.pretty Package_SO.pretty Package_SON.pretty Package_TO_SOT_SMD.pretty Package_TO_SOT_THT.pretty
+    Package_DFN_QFN.pretty Package_QFP.pretty Package_SO.pretty Package_SON.pretty Package_TO_SOT_SMD.pretty Package_TO_SOT_THT.pretty
     Potentiometer_THT.pretty Resistor_SMD.pretty Resistor_THT.pretty
     Rotary_Encoder.pretty TerminalBlock.pretty TerminalBlock_Phoenix.pretty
     TestPoint.pretty

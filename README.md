@@ -41,7 +41,7 @@ electronics-lib/
 │       ├── RotaryEncoder_Bourns_PEC11R-4215F-S0024_Vertical_ThreadedM7Bushing.kicad_mod
 ├── kicad-footprints/          GITIGNORED. Pinned upstream mirror. Reproducible.
 │   ├── LICENSE.md   README.md   fp-lib-table
-│   └── *.pretty/              25 libraries, 3,667 footprints
+│   └── *.pretty/              27 libraries, 4,460 footprints
 ├── references/                GITIGNORED. The primary sources (datasheets, drawings) footprints were drawn from.
 └── tools/
     ├── fetch-kicad-footprints.sh   builds kicad-footprints/
@@ -226,7 +226,7 @@ checking the `(generator …)` tag on all 230 `.kicad_mod` files outside this re
 
 ## Adding a part
 
-1. **Look in the mirror first.** 3,667 footprints across 25 libraries; the part is
+1. **Look in the mirror first.** 4,460 footprints across 27 libraries; the part is
    often already there. If it is, reference it — do not copy it.
 2. **If it is not there, author it into `authored/<Category>.pretty/`**, using KiCad's
    category name so the two trees compose. Pads come from the manufacturer's own
@@ -271,13 +271,13 @@ checks out the pinned commit and sparse-checks-out exactly the libraries it list
 if the count on disk differs. press runs it as `make footprints` (electronics-lib is a submodule
 of press since 2026-10-12).
 
-**Result: 25 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad; Connector_Audio.pretty 2026-10-16 for the A2 board's Neutrik XLRs; Inductor_SMD.pretty 2026-10-16 for the A2 board's buck inductors; Package_SON.pretty 2026-11-13 for the core board's TPS7A39, Texas_DSC0010J), 3,667 footprints (3,594 counted 2026-10-16 + Package_SON's 73 at the pinned commit), ~21 MB working tree (+3.8 MB
+**Result: 27 `*.pretty` libraries (TestPoint.pretty added 2026-08-27 for press's power-frame stitch pad; Connector_Audio.pretty 2026-10-16 for the A2 board's Neutrik XLRs; Inductor_SMD.pretty 2026-10-16 for the A2 board's buck inductors; Package_SON.pretty 2026-11-13 for the core board's TPS7A39, Texas_DSC0010J; Connector_PinHeader_1.27mm.pretty and Package_DFN_QFN.pretty 2026-11-13 for audio-reproduction-systems' converter board: the Samtec FTSH-115 link header and the ADS7138's WQFN-16), 4,460 footprints (3,594 counted 2026-10-16 + Package_SON's 73 + Connector_PinHeader_1.27mm's 278 + Package_DFN_QFN's 515 at the pinned commit), ~21 MB working tree (+3.8 MB
 `.git`).** Verify:
 
 ```bash
 cd kicad-footprints
 diff <(git sparse-checkout list | grep '\.pretty$' | sort) <(ls -d *.pretty | sort)
-find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 3667
+find . -name '*.kicad_mod' -not -path './.git/*' | wc -l    # 4460
 git status --porcelain                                       # empty
 ```
 
