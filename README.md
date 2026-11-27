@@ -161,6 +161,12 @@ What the manufacturer drawing does not give, and the author chose, is listed her
 - `OLED_HS13L03W2C01_1.3in_MidBoard_Courtyard` (2026-10-13): the module's courtyard over the middle board, no pads, origin on the active-area centre (the front-panel footprint's datum).
 - `L_Coilcraft_MA5172-AE_28.6x12.3mm_P10.00mm_Vertical` (2026-10-16): drill 1.4 (max lead 1.07 + 0.33), pad 2.8, leads centred on the body's long axis, courtyard body + 0.25. Coilcraft 943-1 gives body, lead spacing 10.0 +/-0.5 and lead diameter, no land pattern.
 - `Faston_Keystone_1287_6.35mm_Tab_Vertical` (2026-10-16): pad diameter 2.4, courtyard, silk; two legs named 1 / 2 (one terminal; give both the same net). Leg pitch 5.1 (0.200 in) and the 1.3 hole are Keystone's (M65p59). The leg section's diagonal (1.50) exceeds that 1.3 hole: check one physical part before ordering.
+- Speaker board footprints (2026-11-27, audio-reproduction-systems `boards/amp-tpa3255-4ch`, drawn by agents, installed with the owner's permission):
+  - `Package_BGA.pretty/Renesas_LFBGA-551_21x21mm_Layout25x25_P0.8mm`: RZ/G2L R9A07G044L28GBG; the 0.38 mm land is an assumption, not Renesas's stated land.
+  - `Inductor_SMD.pretty/L_Ruishen_RSPQ2918_27.9x27.9mm`: pads 1 / 2 are the winding's lead pair, pad 3 is a mounting pad (no connection), read from the maker's drawing; check one part with a DMM before the first build.
+  - `Resistor_SMD.pretty/R_2512_6332Metric_Walsin_WF25P`: Walsin's own pads for the 2 W WF25P; needs 300 mm2 of copper to reach 2 W.
+  - `Resistor_SMD.pretty/R_Shunt_RESI_PCSR2512_Kelvin_6.4x3.2mm`: RESI's 4-pad Kelvin land, pads 1 / 2 current, 3 / 4 sense, read from the sheet's drawing.
+  - `Connector.pretty/NetworkModule_Bay_56.3x57.6mm_4xM3_Socket2x20`: the network daughter board's bay.
 - `Transformer_Murata_DA100J_9.52x9.0mm_P2.54mm` (2026-10-16): rectangular pads (the drawing shows rectangles), courtyard (pad / body + 0.25), silk, F.Fab pin-1 chamfer. Pads (1.60 x 1.00, centres 11.50 apart, 2.54 pitch), body, pin numbers sourced (Murata KMP_DA100JC_B01 p.2). The ingest table has no row for a transformer / IC-like part: origin on the body centre = pad-field centre, as XIAO-RP2350-SMD.
 - `XIAO-RP2350-SMD` (2026-10-16): nothing chosen here. Seeed's file, with only a `descr` added; its origin is already the pad-field centre (body centre to 0.07 mm).
 
