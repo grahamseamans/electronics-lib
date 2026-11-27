@@ -166,7 +166,8 @@ What the manufacturer drawing does not give, and the author chose, is listed her
   - `Inductor_SMD.pretty/L_Ruishen_RSPQ2918_27.9x27.9mm`: pads 1 / 2 are the winding's lead pair, pad 3 is a mounting pad (no connection), read from the maker's drawing; check one part with a DMM before the first build.
   - `Resistor_SMD.pretty/R_2512_6332Metric_Walsin_WF25P`: Walsin's own pads for the 2 W WF25P; needs 300 mm2 of copper to reach 2 W.
   - `Resistor_SMD.pretty/R_Shunt_RESI_PCSR2512_Kelvin_6.4x3.2mm`: RESI's 4-pad Kelvin land, pads 1 / 2 current, 3 / 4 sense, read from the sheet's drawing.
-  - `Connector.pretty/NetworkModule_Bay_56.3x57.6mm_4xM3_Socket2x20`: the network daughter board's bay.
+  - `Connector.pretty/NetworkModule_Bay_56.3x57.6mm_4xM3_Socket2x20`: the network daughter board's bay. Its keep-out zones leave its own M3 holes out (replaced 2026-11-27).
+  - `Connector.pretty/ComputeModule_Bay_70x70mm_4xM3_Socket2x20` and `Connector.pretty/ComputeModule_Link_Header_2x20_P2.54mm_FromBelow` (2026-11-27): the compute daughter board's bay on a host board and its link header on the module (audio-reproduction-systems `boards/contracts/compute-link.md`).
 - `Transformer_Murata_DA100J_9.52x9.0mm_P2.54mm` (2026-10-16): rectangular pads (the drawing shows rectangles), courtyard (pad / body + 0.25), silk, F.Fab pin-1 chamfer. Pads (1.60 x 1.00, centres 11.50 apart, 2.54 pitch), body, pin numbers sourced (Murata KMP_DA100JC_B01 p.2). The ingest table has no row for a transformer / IC-like part: origin on the body centre = pad-field centre, as XIAO-RP2350-SMD.
 - `XIAO-RP2350-SMD` (2026-10-16): nothing chosen here. Seeed's file, with only a `descr` added; its origin is already the pad-field centre (body centre to 0.07 mm).
 
