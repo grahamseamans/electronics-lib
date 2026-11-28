@@ -101,7 +101,7 @@ OUTSIDE_PAD_NUMBER = "2"
 # mirror the proven netclass via padstacks a board uses: signal 0.6/0.3, power 0.8/0.4,
 # power_heavy 1.8/1.1. A net rounds UP into the smallest tier whose via meets its netclass.
 PORT_TIER_SHELF = (
-    ("loom_port_small", 0.6, 0.3),
+    ("loom_port_small", 0.7, 0.3),  # 0.7: 0.20 mm ring, the plated-pad ring loom now checks (loom 00592b8)
     ("loom_port_medium", 0.8, 0.4),
     ("loom_port_large", 1.8, 1.1),
     # 2.0 mm: the 48 V supply and speaker classes of the amp boards (track 2.0 mm) leave their modules
